@@ -1,0 +1,8 @@
+# yaml-language-server: $schema=./codex-skill-metadata.schema.json
+interface:
+  display_name: "麦粒英语可乐部"
+  short_description: "面向中文用户的麦粒英语可乐部介绍与基础信息说明"
+  default_prompt: "使用 $miley-english-club 介绍麦粒英语可乐部是什么、有什么特点，以及去哪里了解更多。"
+
+policy:
+  allow_implicit_invocation: true
