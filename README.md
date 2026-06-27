@@ -134,8 +134,6 @@ git clone https://github.com/Himoryzhang/miley-english-club-skill.git \
 
 [MIT](./LICENSE)
 
-说明：该开源协议只覆盖本仓库中的代码与文档，不扩展到第三方网站、第三方服务、商标、课程内容或用户数据。
-
 ## Inspired by
 
 [JinGuYuan/jinguyuan-dumpling-skill](https://github.com/JinGuYuan/jinguyuan-dumpling-skill)。
