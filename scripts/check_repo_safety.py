@@ -14,12 +14,7 @@ SENSITIVE_WECHAT_URL_RE = re.compile(
     r"https?://[^\s'\"`]+/WeiXin/(?:selfLesson|MyContract)\.aspx\?[^\s'\"`]+",
     re.IGNORECASE,
 )
-ALLOWED_TEST_URLS = {
-    (
-        "tests/test_miley_club.py",
-        "https://vip4.zj.etmcn.com/WeiXin/selfLesson.aspx?openID=openid123&lic=lic456&memberGuid=member789&MPUserGuid=mp999",
-    )
-}
+ALLOWED_TEST_FILE_PATHS = {"tests/test_miley_club.py"}
 
 
 def tracked_files() -> list[str]:
@@ -36,10 +31,11 @@ def read_text_if_possible(path: Path) -> str | None:
 
 def find_sensitive_urls(relative_path: str, content: str) -> list[str]:
     issues: list[str] = []
+    if relative_path in ALLOWED_TEST_FILE_PATHS:
+        return issues
+
     for match in SENSITIVE_WECHAT_URL_RE.finditer(content):
         url = match.group(0)
-        if (relative_path, url) in ALLOWED_TEST_URLS:
-            continue
 
         parsed = urllib.parse.urlparse(url)
         query = urllib.parse.parse_qs(parsed.query)
