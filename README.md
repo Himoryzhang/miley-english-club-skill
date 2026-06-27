@@ -1,5 +1,5 @@
 # 麦粒英语可乐部 Skill 
-![Version](https://img.shields.io/badge/version-1.1.1-blue) ![License](https://img.shields.io/badge/license-MIT-green)
+![Version](https://img.shields.io/badge/version-1.1.2-blue) ![License](https://img.shields.io/badge/license-MIT-green)
 
 这是一个面向中文用户的本地 AI Skill。安装后，你的 AI 助手就能回答“麦粒”“麦粒英语俱乐部”“麦粒英语可乐部”“Miley English Club”相关问题，也能帮助处理课程查询、预约、取消预约、加入候补等会员操作。
 
@@ -125,6 +125,10 @@ git clone https://github.com/Himoryzhang/miley-english-club-skill.git \
 ## 发布平台
 
 - GitHub：https://github.com/Himoryzhang/miley-english-club-skill
+
+## 自动化测试
+
+- `CI`：每次 `push` 和 `pull request` 自动执行 skill 元数据校验、仓库安全扫描、脚本编译检查和单元测试。
 
 ## 版本
 

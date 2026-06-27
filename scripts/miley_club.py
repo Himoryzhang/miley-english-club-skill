@@ -90,7 +90,7 @@ class MemberSession:
             "label": self.label,
             "open_id_suffix": self.open_id[-6:],
             "lic_suffix": self.lic[-6:],
-            "member_guid": self.member_guid,
+            "member_guid_suffix": self.member_guid[-6:],
             "page_type": self.page_type,
             "upstream_origin": self.upstream_origin,
             "created_at": self.created_at,

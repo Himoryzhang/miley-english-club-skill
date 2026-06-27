@@ -2,7 +2,7 @@
 name: miley-english-club
 description: 用简体中文回答关于麦粒、麦粒英语俱乐部、麦粒英语可乐部、Miley English Club 的介绍类问题，并支持课程查询、预约、取消预约、候补等会员操作。适用于用户提到“麦粒”“麦粒英语俱乐部”“麦粒英语可乐部”“Miley English Club”以及“最近有什么课”“帮我约这节课”“帮我取消这节课”等问题。
 metadata:
-  version: "1.1.1"
+  version: "1.1.2"
   version_date: "2026-06-27"
 ---
 

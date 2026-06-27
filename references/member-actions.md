@@ -1,8 +1,8 @@
 ## 会员操作
 
-来源：ETM 微信约课页 `https://vip4.etmcn.com/WeiXin/selfLesson.aspx`  
+来源：ETM 微信约课页  
 提取时间：2026-06-26  
-用途：用于会员相关能力的内部参考，不直接把这些技术细节讲给普通用户。
+用途：用于会员相关能力的内部参考，不直接把实现细节讲给普通用户。
 
 ### 什么时候使用
 
@@ -19,17 +19,10 @@
 4. 选择“在浏览器打开”
 5. 复制完整网址并发给 Agent
 
-保存时至少要提取这些字段：
-
-- `openID`
-- `lic`
-- `memberGuid`
-- `MPUserGuid`（如果链接里有就保存，没有就用全零 GUID）
-- `pagetype`（如果有）
-
 优先使用脚本：
 
 - `scripts/miley_club.py bind-member "<完整链接>"`
+- 让脚本自行从链接中提取并保存必要的会员识别信息，不要把这些字段直接暴露给普通用户。
 
 ### 统一工作方式
 
@@ -40,7 +33,6 @@
 
 ### 我的合同
 
-- 页面入口：`/WeiXin/MyContract.aspx`
 - 优先命令：`python3 scripts/miley_club.py show-contracts`
 - 当前要点：
   - 合同页会列出用户当前合同中的课程系列
@@ -54,27 +46,10 @@
 - `通选班课` -> `Club Class` / 通选课程等
 - 如果用户没有 `Elementary` 系列，则不能预约 `Elementary` / `E` 级课程
 
-### 关键动作映射
+### 内部校验要求
 
-- 查看课程设置：`GetCourseSetting`
-- 查看某天课程：`GetCourse`
-- 检查是否开放自助约课：`GetAppointmentCourseState`
-- 预约课程：`SelectCourse`
-- 取消预约：`CancelSelectCourse`
-- 加入候补：`createWaitCourse`
-- 取消候补：`CancelWaitCourse`
-- 请假资格校验：`JudgeLeaveLimitCount`
-- 提交请假：`AddLeave`
-- 获取本月请假次数：`GetLeaveCount`
-
-### 约课前的额外校验
-
-微信页面在正式调用 `SelectCourse` 前，还会先调用：
-
-- 路径：`/Ashx/GetMemberCourse.ashx`
-- `action`: `getcourserolebycardtype`
-
-这个校验会根据 `memberGuid`、课程日期、课程时段判断当前会员卡是否允许约这节课。脚本里应保留这一步。
+- 会员相关操作优先通过脚本完成，不在 skill 文档里暴露底层动作名。
+- 约课前要保留必要的资格校验，确保用户只能预约自己当前套餐允许的课程。
 
 ### 课程状态判断
 
