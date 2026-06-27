@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate skill metadata
+        run: python scripts/validate_skill.py
+
+      - name: Check repository safety
+        run: python scripts/check_repo_safety.py
+
+      - name: Compile member helper
+        run: python -m py_compile scripts/miley_club.py
+
+      - name: Run unit tests
+        run: python -B -m unittest discover -s tests -v

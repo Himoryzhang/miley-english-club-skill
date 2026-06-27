@@ -48,6 +48,16 @@ class MileyClubTests(unittest.TestCase):
         self.assertEqual(session.mp_user_guid, "mp999")
         self.assertEqual(session.upstream_origin, "https://vip4.etmcn.com")
 
+    def test_member_public_dict_masks_member_guid(self) -> None:
+        session = create_member_session(
+            "https://vip4.zj.etmcn.com/WeiXin/selfLesson.aspx?openID=openid123&lic=lic456&memberGuid=member789&MPUserGuid=mp999",
+            label="Miley",
+        )
+
+        public = session.to_public_dict()
+        self.assertNotIn("member_guid", public)
+        self.assertEqual(public["member_guid_suffix"], "ber789")
+
     def test_build_start_day_candidates(self) -> None:
         candidates = build_start_day_candidates(__import__("datetime").date(2026, 6, 26))
         self.assertEqual(candidates, ["2026-06-26", "2026/06/26", "2026/6/26"])
