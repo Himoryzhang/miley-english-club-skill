@@ -23,6 +23,8 @@ def tracked_files() -> list[str]:
 
 
 def read_text_if_possible(path: Path) -> str | None:
+    if not path.exists():
+        return None
     try:
         return path.read_text(encoding="utf-8")
     except UnicodeDecodeError:

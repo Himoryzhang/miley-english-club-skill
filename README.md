@@ -129,8 +129,6 @@ git clone https://github.com/Himoryzhang/miley-english-club-skill.git \
 ## 自动化测试
 
 - `CI`：每次 `push` 和 `pull request` 自动执行 skill 元数据校验、仓库安全扫描、脚本编译检查和单元测试。
-- `Read-only Smoke Test`：GitHub Actions 手动触发，只做只读联调，不执行预约、取消预约或候补写操作。
-- 触发 smoke test 前，需要在仓库 `Settings -> Secrets and variables -> Actions` 中配置 `MILEY_BOOKING_URL`。
 
 ## 版本
 
