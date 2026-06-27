@@ -158,7 +158,7 @@ class MileyClubTests(unittest.TestCase):
             "MemberCourseGuid": ZERO_GUID,
         }
         status, label, bucket = classify_course(record, "2099-06-09T10:00:00", 0)
-        self.assertEqual((status, label, bucket), ("waitlist_open", "可排队", "waitlist"))
+        self.assertEqual((status, label, bucket), ("waitlist_open", "可候补", "waitlist"))
 
     def test_compute_seats_left(self) -> None:
         record = {

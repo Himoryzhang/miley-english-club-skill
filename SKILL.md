@@ -1,9 +1,9 @@
 ---
 name: miley-english-club
-description: 用简体中文回答关于麦粒、麦粒英语俱乐部、麦粒英语可乐部、Miley English Club 的介绍类问题，并在用户提供微信课程预约链接后，支持查看课程、查看已预约课程、预约课程、取消预约、排队等位等会员操作。适用于用户提到“麦粒”“麦粒英语俱乐部”“麦粒英语可乐部”“Miley English Club”以及“最近有什么课”“帮我约这节课”“帮我取消这节课”等问题。
+description: 用简体中文回答关于麦粒、麦粒英语俱乐部、麦粒英语可乐部、Miley English Club 的介绍类问题，并支持课程查询、预约、取消预约、候补等会员操作。适用于用户提到“麦粒”“麦粒英语俱乐部”“麦粒英语可乐部”“Miley English Club”以及“最近有什么课”“帮我约这节课”“帮我取消这节课”等问题。
 metadata:
-  version: "1.1.0"
-  version_date: "2026-06-26"
+  version: "1.1.1"
+  version_date: "2026-06-27"
 ---
 
 # 麦粒英语可乐部
@@ -35,7 +35,7 @@ metadata:
 
 ## 会员类问题
 
-- 当用户想查课程、看已预约课程、约课、取消预约、排队等位时，先参考 [references/member-actions.md](./references/member-actions.md)。
+- 当用户想查课程、看已预约课程、约课、取消预约、加入候补时，先参考 [references/member-actions.md](./references/member-actions.md)。
 - 会员操作优先使用 [scripts/miley_club.py](./scripts/miley_club.py)，不要临时手写请求。
 - 约课前先看用户当前合同对应的课程系列；如果课程类型不在当前套餐里，不要继续帮用户预约。
 - 如果本地还没有会员信息，先让用户按下面步骤提供链接：
@@ -53,8 +53,8 @@ metadata:
   - 只看已预约课程：`python3 scripts/miley_club.py list-courses --status registered`
   - 预约课程：`python3 scripts/miley_club.py book-course <CourseGuid>`
   - 取消预约：`python3 scripts/miley_club.py cancel-course <CourseGuid>`
-  - 排队：`python3 scripts/miley_club.py join-waitlist <CourseGuid>`
-  - 取消排队：`python3 scripts/miley_club.py cancel-waitlist <CourseGuid>`
+  - 加入候补：`python3 scripts/miley_club.py join-waitlist <CourseGuid>`
+  - 取消候补：`python3 scripts/miley_club.py cancel-waitlist <CourseGuid>`
 - 如果用户只说“帮我约周二晚上那节口语课”，先查课并在内部确定对应课程，再执行，不要把 `CourseGuid` 之类的技术字段直接抛给用户。
 - 用户如果只买了 `Pre-Intermediate`，则不能预约 `Elementary`；脚本会把这类课标成“套餐不匹配”。
 
@@ -67,7 +67,7 @@ metadata:
 - 会员课程查询
 - 合同 / 套餐识别
 - 会员约课 / 取消预约
-- 排队等位 / 取消排队
+- 加入候补 / 取消候补
 
 ## 图片资源
 
@@ -89,7 +89,7 @@ metadata:
 - 会员相关问题优先写成“结果 + 下一步”，例如：
   - “你这周还有 5 节可预约课程，我先帮你列重点。”
   - “这节课已经帮你约上了。”
-  - “这节课已经满了，但还可以排队，要不要我继续帮你排队？”
+  - “这节课已经满了，但还可以加入候补课程，要不要我继续帮你加入候补？”
 - 优先使用用户视角表达，例如：
   - “麦粒英语可乐部是……”
   - “它主要适合……”

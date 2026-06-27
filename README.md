@@ -1,233 +1,153 @@
-# 麦粒英语可乐部 Skill
+# 麦粒英语可乐部 Skill 
+![Version](https://img.shields.io/badge/version-1.1.1-blue) ![License](https://img.shields.io/badge/license-MIT-green)
 
-这是一个面向中文用户的本地 Skill。
+这是一个面向中文用户的本地 AI Skill。安装后，你的 AI 助手就能回答“麦粒”“麦粒英语俱乐部”“麦粒英语可乐部”“Miley English Club”相关问题，也能帮助处理课程查询、预约、取消预约、加入候补等会员操作。
 
-安装后，Agent 可以回答“麦粒”“麦粒英语俱乐部”“麦粒英语可乐部”“Miley English Club”相关问题，也可以在用户提供微信课程预约页完整链接后，帮助用户查看课程、查看已预约课程、预约课程、取消预约、排队等位，并根据“我的合同”自动判断课程是否与当前套餐匹配。
+## 关于麦粒英语可乐部
 
-## 这是什么
+官网：[麦粒英语可乐部官方介绍](https://mp.weixin.qq.com/s/u_RWjbyFULLx6U79YR0OtQ)
 
-这个仓库本身就是 Skill 根目录，不需要再额外包一层子目录。
+| 项目 | 内容 |
+|------|------|
+| 官方称呼 | 麦粒英语可乐部 |
+| 英文名 | Miley's English Club |
+| 信息来源 | 俱乐部官网 |
+| 来源更新时间 | 2022-11-27 |
+| 电话 | 010-57389020 |
+| 地址 | 北京市朝阳区望京合生麒麟社 1 号楼底商 4-3（望京 SOHO 西侧） |
+| 抖音 | `dy5hoh16nhgj` / 麦粒英语可乐部 •口语•商务•雅思 |
+| 小红书 | `49314365428` / 麦粒英语可乐部 |
 
-当前 Skill 主要包含两类能力：
+## 这个 Skill 能做什么
 
-- 介绍类：回答俱乐部是什么、有什么课程、适合谁、怎么进一步了解
-- 会员类：保存会员信息、读取课程、读取合同、判断套餐是否匹配、执行约课或取消预约
+麦粒英语可乐部的信息服务 Skill，包含介绍类能力 + 会员课程服务能力：
 
-## 能做什么
+| 能力 | 你可以问 | 来源 |
+|------|----------|------|
+| 俱乐部介绍 | “麦粒是什么？”“麦粒英语可乐部是做什么的？” | 官网 reference |
+| 课程类型说明 | “麦粒有哪些课？”“Skill Class 是什么？” | 官网 reference |
+| 社交媒体与联系方式 | “有小红书吗？”“怎么联系他们？” | 官网 reference |
+| 环境图与二维码 | “我想看看环境”“有二维码吗？” | 本地图片资源 |
+| 绑定会员信息 | “我把约课链接发给你，你帮我记住” | 内嵌会员脚本 |
+| 查看当前合同 | “我现在买了什么套餐？” | 内嵌会员脚本 |
+| 查看最近课程 | “最近有什么课？” | 内嵌会员脚本 |
+| 查看已预约课程 | “我这周约了哪些课？” | 内嵌会员脚本 |
+| 预约课程 | “帮我约周日 Kinsey 的课” | 内嵌会员脚本 |
+| 取消预约 | “帮我取消周六那节课” | 内嵌会员脚本 |
+| 候补课程 | “这节课满了，帮我加入候补” | 内嵌会员脚本 |
 
-| 能力 | 你可以这样问 |
-| --- | --- |
-| 俱乐部介绍 | “麦粒是什么？”“麦粒英语俱乐部是做什么的？” |
-| 课程类型说明 | “麦粒有哪些课？”“Skill Class 是什么？” |
-| 社交媒体与环境图 | “有小红书吗？”“我想看看环境” |
-| 绑定会员信息 | “我把约课链接发给你，你帮我记住” |
-| 查看当前合同 / 套餐 | “我现在买了什么套餐？” |
-| 查看最近课程 | “最近有什么课？” |
-| 查看已预约课程 | “我这周约了哪些课？” |
-| 预约课程 | “帮我约周日 Kinsey 的课” |
-| 取消预约 | “帮我取消周六那节课” |
-| 排队等位 | “这节课满了，帮我排队” |
+## 会员课程服务
 
-## 关键特点
+本 Skill 内嵌了基于微信课程预约页的会员服务能力，AI 助手可以直接帮用户完成查课、查合同、约课、取消预约、加入候补，无需反复手动打开页面。
 
-- 默认中文回复，偏结果导向，不向普通用户暴露太多技术细节
-- 支持多个触发别名：
-  - `麦粒`
-  - `麦粒英语俱乐部`
-  - `麦粒英语可乐部`
-  - `Miley English Club`
-- 会员能力基于微信约课页真实链路
-- 约课前会先检查“我的合同”，避免把不属于当前套餐的课程误判成可约
-- 本地保存会员状态，后续无需重复发送链接
+**支持的操作：**
 
-## 套餐与约课规则
+| 操作 | 说明 | 你可以说 |
+|------|------|----------|
+| 查看合同 | 查看当前有效套餐 | “我现在买了什么套餐？” |
+| 查看可约课程 | 查看最近可报名课程 | “最近有什么课？” |
+| 查看已预约课程 | 查看自己已经报上的课 | “我这周约了哪些课？” |
+| 预约课程 | 预约符合套餐的课程 | “帮我约周日 Kinsey 的课” |
+| 取消预约 | 取消已经报上的课程 | “帮我取消周六那节课” |
+| 加入候补 | 课程满员时加入候补课程 | “这节课满了，帮我加入候补” |
+| 取消候补 | 退出当前候补 | “帮我取消候补” |
 
-Skill 会先读取“我的合同”页面，再判断课程是否与当前套餐匹配。
-
-当前已支持识别这些系列：
-
-- `Pre-Intermediate-课程系列`
-- `Pre-Intermediate&Intermediate-系列课程`
-- `通选班课`
-
-当前已支持识别这些课程类型：
-
-- `Elementary` / `E` 级
-- `Pre-Intermediate`
-- `Pre-Intermediate & Intermediate`
-- `Club Class` / 通选课程
-
-例如：
-
-- 如果用户只买了 `Pre-Intermediate`，则不能预约 `Elementary`
-- 如果课程会话里判断为套餐不匹配，Skill 会直接拦下，不继续提交预约请求
-
-## 使用方式
-
-### 1. 介绍类问题
-
-直接问即可，例如：
-
-- “麦粒英语可乐部是什么？”
-- “麦粒有什么特点？”
-- “怎么联系他们？”
-
-### 2. 会员类问题
-
-第一次使用时，需要让用户提供微信课程预约页完整链接：
+**首次使用流程：**
 
 1. 打开微信
 2. 搜索“麦粒英语可乐部”
 3. 点击“课程预约”
 4. 选择“在浏览器打开”
-5. 复制完整网址并发给 Agent
+5. 复制完整网址并发给 AI 助手
+6. AI 助手保存后，后续可直接复用
 
-之后 Agent 会把会员信息保存到本地，后续可直接复用。
+**约课规则：**
 
-## 本地命令
-
-会员相关能力优先使用脚本 [scripts/miley_club.py](./scripts/miley_club.py)：
-
-```bash
-# 绑定会员
-python3 scripts/miley_club.py bind-member "<完整链接>" --make-default
-
-# 查看已保存会员
-python3 scripts/miley_club.py list-members
-
-# 查看当前合同 / 套餐
-python3 scripts/miley_club.py show-contracts
-
-# 查看全部课程
-python3 scripts/miley_club.py list-courses --status all
-
-# 只看可预约课程
-python3 scripts/miley_club.py list-courses --status available
-
-# 只看已预约课程
-python3 scripts/miley_club.py list-courses --status registered
-
-# 预约课程
-python3 scripts/miley_club.py book-course <CourseGuid>
-
-# 取消预约
-python3 scripts/miley_club.py cancel-course <CourseGuid>
-
-# 排队
-python3 scripts/miley_club.py join-waitlist <CourseGuid>
-
-# 取消排队
-python3 scripts/miley_club.py cancel-waitlist <CourseGuid>
-```
+- 约课前会先读取“我的合同”，再判断课程是否与当前套餐匹配。
+- 当前已支持识别 `Pre-Intermediate-课程系列`、`Pre-Intermediate&Intermediate-系列课程`、`通选班课`。
+- 当前已支持识别 `Elementary / E`、`Pre-Intermediate`、`Pre-Intermediate & Intermediate`、`Club Class / 通选课程`。
+- 如果课程与当前套餐不匹配，Skill 会直接拦下，不继续提交预约。
 
 ## 目录结构
 
 ```text
 miley-english-club-skill/
-├── SKILL.md                         # 核心 Skill 指令与元数据
-├── README.md                        # 项目说明
-├── .gitignore                       # 本地状态与缓存忽略规则
+├── SKILL.md
+├── README.md
+├── LICENSE
+├── .gitignore
 ├── agents/
-│   ├── openai.yaml                  # UI 元数据
+│   ├── openai.yaml
 │   └── codex-skill-metadata.schema.json
 ├── references/
-│   ├── club-info.md                 # 俱乐部介绍
-│   ├── class-info.md                # 课程介绍
-│   └── member-actions.md            # 会员操作参考
+│   ├── club-info.md
+│   ├── class-info.md
+│   └── member-actions.md
 ├── scripts/
-│   └── miley_club.py                # 本地会员脚本
+│   └── miley_club.py
 ├── tests/
-│   └── test_miley_club.py           # 单元测试
+│   └── test_miley_club.py
 └── assets/
-    └── images/                      # 环境图、二维码等资源
+    └── images/
 ```
 
 ## 安装
 
-### 最简单的方式
+### 最简单的方式：告诉你的 AI 助手
 
-把这个仓库作为 Skill 安装到你的 Skill 目录中，只要目录下有 `SKILL.md`，Agent 就能识别。
+直接拷贝下面这句话发给你的 AI 助手：
 
-通用目录通常是：
+> 帮我安装麦粒英语可乐部 Skill，仓库地址：https://github.com/Himoryzhang/miley-english-club-skill
 
-```text
-.agents/skills/miley-english-club/
-```
+### 其他安装方式
 
-也可以直接放到当前工作区或工具约定的 Skill 目录中使用。
+**手动克隆到 Skill 目录：**
 
-### 手动克隆
+将本仓库克隆到你使用的 Skill 目录即可。本仓库根目录就是 Skill 根目录，不需要额外再包一层子目录。
 
-```bash
-git clone https://github.com/Himoryzhang/miley-english-club-skill.git
-```
-
-## 测试
-
-### Skill 结构校验
-
-```bash
-python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py .
-```
-
-### 单元测试
+| IDE | Skill 目录 |
+|-----|-------------|
+| Qoder | `.qoder/skills/miley-english-club-skill/` |
+| Cursor | `.cursor/skills/miley-english-club-skill/` |
+| Trae | `.trae/skills/miley-english-club-skill/` |
+| Windsurf | `.windsurf/skills/miley-english-club-skill/` |
+| Claude Code | `.claude/skills/miley-english-club-skill/` |
+| 通用 | `.agents/skills/miley-english-club-skill/` |
 
 ```bash
-python3 -B -m unittest discover -s tests -v
+# 示例：安装到通用 Skill 目录
+git clone https://github.com/Himoryzhang/miley-english-club-skill.git \
+  .agents/skills/miley-english-club-skill
 ```
 
-### 真人联调建议
+只要目录下有 `SKILL.md`，Agent 下次启动就会自动加载这个 Skill。
 
-建议按这个顺序测试：
+## 发布平台
 
-1. 绑定会员链接
-2. 查看当前合同
-3. 查看最近课程
-4. 预约一节确定属于当前套餐的课
-5. 尝试预约一节不属于当前套餐的课，确认会被拦下
-6. 取消预约
+- GitHub：https://github.com/Himoryzhang/miley-english-club-skill
 
-## 信息来源
+## 使用说明
 
-介绍类内容主要来自俱乐部官网整理的 reference：
+| 项目 | 说明 |
+|------|------|
+| 运行方式 | 本地 Skill + 本地脚本 |
+| 介绍类信息 | 来自官网整理后的 reference |
+| 会员信息 | 仅在用户主动提供链接后保存到本地 |
+| 本地状态目录 | `.local-state/` |
+| Git 提交保护 | `.local-state/` 已加入 `.gitignore` |
+| 约课判断 | 先看合同，再判断课程是否可约 |
+| 建议边界 | 仅建议用于用户本人账号、自助操作和小规模本地辅助，不建议做公共抓取服务、批量转售数据或绕过站点限制 |
 
-- [references/club-info.md](./references/club-info.md)
-- [references/class-info.md](./references/class-info.md)
+## 版本
 
-当前仓库中使用的官网链接为：
+版本号见顶部徽章，以 [`SKILL.md`](./SKILL.md) frontmatter 中的 `metadata.version` 为准。
 
-- [麦粒英语可乐部官方介绍](https://mp.weixin.qq.com/s/u_RWjbyFULLx6U79YR0OtQ)
+## License
 
-## 隐私与本地状态
+[MIT](./LICENSE)
 
-微信课程预约页链接中包含用户敏感会员信息，应视为私密信息。
+说明：该开源协议只覆盖本仓库中的代码与文档，不扩展到第三方网站、第三方服务、商标、课程内容或用户数据。
 
-本项目默认会把本地会员状态保存到本地目录，不应提交到 Git。当前仓库已经通过 `.gitignore` 忽略：
+## Inspired by
 
-- `.local-state/`
-
-如果你在本地测试，请不要公开分享这些链接或状态文件。
-
-## 当前状态
-
-当前版本能力以 [SKILL.md](./SKILL.md) frontmatter 中的 `metadata.version` 为准。
-
-当前已完成：
-
-- 俱乐部介绍
-- 课程介绍
-- 社交媒体信息
-- 图片资源支持
-- 会员绑定
-- 查课 / 查已预约
-- 合同套餐识别
-- 套餐匹配校验
-- 约课 / 取消预约
-- 排队 / 取消排队
-
-后续可以继续增强的方向：
-
-- 更细的课程筛选与排序
-- 更友好的课程摘要输出
-- 更完整的请假流程支持
-- 更强的多会员管理能力
+[JinGuYuan/jinguyuan-dumpling-skill](https://github.com/JinGuYuan/jinguyuan-dumpling-skill)。

@@ -829,10 +829,10 @@ def classify_course(record: Mapping[str, Any], start_at: str | None, seats_left:
         return "booked", "已预约", "registered"
 
     if is_wait:
-        return "waitlisted", "已排队", "waitlist"
+        return "waitlisted", "已候补", "waitlist"
 
     if seats_left == 0 and cancel_member_line_up:
-        return "waitlist_open", "可排队", "waitlist"
+        return "waitlist_open", "可候补", "waitlist"
 
     if start_at:
         try:
@@ -1070,7 +1070,7 @@ def join_waitlist(session: MemberSession, course_guid: str) -> dict[str, Any]:
     courses = fetch_window_courses(session)
     course = find_course_by_guid(courses, course_guid)
     if not course.can_join_waitlist:
-        raise MileyClubError(f"课程当前状态为“{course.status_label}”，不能加入排队。")
+        raise MileyClubError(f"课程当前状态为“{course.status_label}”，不能加入候补。")
     result = call_weixin_action(
         session,
         "createWaitCourse",
@@ -1085,7 +1085,7 @@ def join_waitlist(session: MemberSession, course_guid: str) -> dict[str, Any]:
     return {
         "ok": True,
         "action": "join_waitlist",
-        "message": result["message"] or "已加入排队。",
+        "message": result["message"] or "已加入候补。",
         "course": course.to_dict(),
     }
 
@@ -1094,7 +1094,7 @@ def cancel_waitlist(session: MemberSession, course_guid: str) -> dict[str, Any]:
     courses = fetch_window_courses(session)
     course = find_course_by_guid(courses, course_guid)
     if not course.can_cancel_waitlist:
-        raise MileyClubError(f"课程当前状态为“{course.status_label}”，不能取消排队。")
+        raise MileyClubError(f"课程当前状态为“{course.status_label}”，不能取消候补。")
     result = call_weixin_action(
         session,
         "CancelWaitCourse",
@@ -1109,7 +1109,7 @@ def cancel_waitlist(session: MemberSession, course_guid: str) -> dict[str, Any]:
     return {
         "ok": True,
         "action": "cancel_waitlist",
-        "message": result["message"] or "已取消排队。",
+        "message": result["message"] or "已取消候补。",
         "course": course.to_dict(),
     }
 
